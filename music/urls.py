@@ -18,6 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('homepage/',views.mainpage, name='index')
+    path('homepage/',views.mainpage, name='index'),
+    path('authorize/',views.authorize, name='authorize')
 
 ]

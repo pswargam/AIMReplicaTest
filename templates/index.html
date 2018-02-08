@@ -4,7 +4,6 @@
 
 <head>
 
-  <meta charset="UTF-8">
 
   <title>CodePen - Random Login Form</title>
 
@@ -167,12 +166,17 @@ body{
 
 
 		<div class="login">
-            <form method="post" action="/music/authorize" >{% csrf_token %}
+            <form method="post" action="/music/authorize/" >{% csrf_token %}
 				<input type="text" placeholder="username" name="user"><br>
 				<input type="password" placeholder="password" name="password"><br>
-				<input type="button" value="Login">
+				<input type="submit" value="Login">
+
             </form>
-		</div>
+
+            </div>
+
+      </div>
+
         {% endblock %}
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
