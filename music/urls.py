@@ -19,6 +19,8 @@ from . import views
 
 urlpatterns = [
     path('homepage/',views.mainpage, name='index'),
-    path('authorize/',views.authorize, name='authorize')
-
+    path('authorize/',views.authorize, name='authorize'),
+    path('redirectToAllSongs/', views.redirectToAllSongs, name='redirectToAllSongs'),
+    path('calendar/',views.redirectToCalendar,name='redirectToCalendar'),
+    path('getValuesForCalendar/',views.getValuesForCalendar,name='getValuesForCalendar')
 ]

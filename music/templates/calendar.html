@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<title>AIM </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script>
+
+  $(document).ready(function() {
+      var date=new Date();
+      var d=date.getDate();
+      var m=date.getMonth();
+      var y=date.getFullYear();
+      var eventsFromBackend=[];
+      jQuery.ajax({
+
+	    url : '{% url "getValuesForCalendar" %}',
+	    type: 'post',
+
+        data : {csrfmiddlewaretoken: '{{ csrf_token }}'},
+	    success: function(data)
+
+	    {
+
+
+	    	parameter=(data);
+	    	var index;
+	    	var len=parameter.length;
+            $('#mainDiv').empty();
+
+	    	for (index=0;index<len;index++){
+	    	    var s = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    s.setUTCSeconds(parameter[index].fields.startTime);
+                var e = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    e.setUTCSeconds(parameter[index].fields.endTime);
+                var dictFromBackend = {"title" : parameter[index].fields.attendee[0],
+                "start" : s,
+                "end" : e,
+                "color" :'green'}
+                eventsFromBackend.push(dictFromBackend);
+            }
+
+
+            callingCalendar(eventsFromBackend)
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	    	alert(errorThrown);
+	    }
+	});
+
+   })
+      var testing=[];
+function callingCalendar(eventsFromBackend){
+    console.log(eventsFromBackend);
+   var calendar = $('#calendar').fullCalendar({
+    editable:true,
+
+       events:eventsFromBackend
+   })}
+
+    </script>
+<body>
+  <br />
+  <h2 align="center"><a href="#">Your AIM Calendar </a></h2>
+  <br />
+  <div id="mainDiv"></div>
+  <div class="container">
+
+   <div id="calendar"></div>
+  </div>
+ </body>
+</html>
