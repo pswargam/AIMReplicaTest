@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'music.apps.MusicConfig',
+    'AIMTest.apps.MusicConfig',
     'rest_framework.authtoken'
 
 ]
