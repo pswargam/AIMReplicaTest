@@ -831,7 +831,9 @@ a.fc-more:hover {
 }
 
 .fc-toolbar .fc-left {
-	float: left;
+	/*float: center;*/
+	display: inline-block;
+	margin-left: 180px;
 }
 
 .fc-toolbar .fc-right {
@@ -941,7 +943,14 @@ a.fc-more:hover {
 
 .fc-basic-view .fc-week-number,
 .fc-basic-view .fc-day-number {
-	padding: 2px;
+	padding: 5px;
+	margin: 1px;
+}
+
+.fc-plus-icon {
+    padding: 5px;
+    margin: 1px;
+    display: none;
 }
 
 .fc-basic-view th.fc-week-number,

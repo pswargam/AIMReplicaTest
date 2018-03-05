@@ -139,3 +139,33 @@ body{
    color: rgba(255,255,255,0.6);
 }
 
+.my_calendar_tab{
+
+  margin-left: 120px;
+  /*margin-bottom: -48px*/
+  margin-bottom: 10px;
+}
+.manage_meetings_tab{
+  /*margin-bottom: -48px;*/
+  margin-left: 0px;
+  margin-bottom: 10px;
+}
+.edit_availability_tab{
+    margin-left: 355px;
+    margin-bottom: 10px;
+
+}
+
+.schedule_meeting_tab{
+    margin-left: 00px;
+    margin-bottom: 10px;
+}
+
+.cancel_meeting_tab{
+    margin-left: 00px;
+    margin-bottom: 10px;
+}
+
+.edit_tabs{
+    display: none;
+}

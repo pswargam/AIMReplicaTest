@@ -15,7 +15,55 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script src="/static/AIMTest/js/fullcalendaredit.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>-->
+
+    <script>
+        function displayplus() {
+            var x = document.getElementsByClassName('fc-plus-icon');
+            for(var a=0; a<x.length;a++){
+                    x[a].style.display = "inline";
+            }
+         }
+        function hideplus(){
+            var x = document.getElementsByClassName('fc-plus-icon');
+            for(var a=0; a<x.length; a++){
+                if(x[a].style.display == "inline"){
+                    x[a].style.display = "none";
+                }
+                else{
+                    x[a].style.display = "inline";
+                }
+            }
+        }
+        function hideplusoncalendar(){
+            var x = document.getElementsByClassName('fc-plus-icon');
+            for(var a=0; a<x.length;a++){
+                    x[a].style.display = "none";
+            }
+         }
+        function showbuttons(){
+            var x = document.getElementsByClassName('edit_tabs');
+            for(var a=0; a<x.length;a++){
+                    x[a].style.display = "inline";
+            }
+        }
+        function hidebuttons(){
+            var x = document.getElementsByClassName('edit_tabs');
+            for(var a=0; a<x.length;a++){
+                x[a].style.display = "none";
+            }
+        }
+        function hide_edit_tabs_plus(){
+            hideplusoncalendar();
+            hidebuttons();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            hidebuttons();
+        }, false);
+
+    </script>
   <script>
 
   $(document).ready(function() {
@@ -98,9 +146,18 @@ function callingCalendar(eventsFromBackend){
     </script>
 <body>
   <br />
-  <h2 align="center"><a href="#">Your AIM Calendar </a></h2>
+  <!--<h2 align="center"><a href="#">Your AIM Calendar </a></h2>-->
   <br />
   <div id="mainDiv"></div>
+  <button type="button" onclick="hide_edit_tabs_plus()" class="btn btn-secondary my_calendar_tab" >My Calendar</button>
+  <button type="button" onclick="showbuttons()" class="btn btn-secondary manage_meetings_tab" >Manage Meetings</button>
+  <button type="button" onclick="hideplus()" class="btn btn-primary edit_tabs edit_availability_tab">Edit Availability</button>
+  <button type="button" class="btn btn-primary edit_tabs schedule_meeting_tab" >Schedule Meeting</button>
+  <button type="button" class="btn btn-primary edit_tabs cancel_meeting_tab">Cancel Meeting</button>
+
+
+
+
   <div class="container">
 
    <div id="calendar"></div>
