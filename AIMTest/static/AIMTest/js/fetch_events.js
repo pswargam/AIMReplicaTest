@@ -1,0 +1,86 @@
+//<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />-->
+  <link rel="stylesheet" href="/static/AIMTest/fullcalendar.css">
+//  <!--<link rel="stylesheet" href="/static/AIMTest/fullcalendar_print.css">-->
+  <link rel="stylesheet" href="/static/AIMTest/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="/static/AIMTest/js/fullcalendaredit.js"></script>
+
+$(document).ready(function() {
+      var date=new Date();
+      var d=date.getDate();
+      var m=date.getMonth();
+      var y=date.getFullYear();
+      var eventsFromBackend=[];
+      jQuery.ajax({
+
+	    url : '{% url "getValuesForCalendar" %}',
+	    type: 'post',
+
+        data : {csrfmiddlewaretoken: '{{ csrf_token }}'},
+	    success: function(data)
+
+	    {
+
+            var setOfColors=['#98EBF2','#98F29B','#F2B798','#98A6F2','#F2E898','#F298F2','#F298AD','#D3F298'];
+            colorLen=setOfColors.length;
+            coloridx=0;
+            var userColorSet={};
+	    	parameter=(data);
+	    	var index;
+	    	var len=parameter.length;
+            $('#mainDiv').empty();
+
+	    	for (index=0;index<len;index++){
+	    	    var color='';
+	    	    if(Object.keys(userColorSet).indexOf(parameter[index].fields.attendee[0])==-1)
+                {
+
+                    if(coloridx>colorLen)
+                    {
+                        coloridx=0;
+                        color=setOfColors[coloridx];
+                        coloridx++;
+                    }
+                    else
+                    {
+                        color=setOfColors[coloridx];
+                        coloridx++;
+                    }
+                    userColorSet[parameter[index].fields.attendee[0]]=color;
+                }
+
+                color=userColorSet[parameter[index].fields.attendee[0]];
+
+	    	    var s = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    s.setUTCSeconds(parameter[index].fields.startTime);
+                var e = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    e.setUTCSeconds(parameter[index].fields.endTime);
+                var dictFromBackend = {"title" : parameter[index].fields.attendee[0],
+                "start" : s,
+                "end" : e,
+                "color" :color}
+                eventsFromBackend.push(dictFromBackend);
+            }
+            console.log(userColorSet);
+
+
+            callingCalendar(eventsFromBackend)
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	    	alert(errorThrown);
+	    }
+	});
+
+   })
+      var testing=[];
+function callingCalendar(eventsFromBackend){
+    console.log(eventsFromBackend);
+   var calendar = $('#calendar').fullCalendar({
+    editable:true,
+
+       events:eventsFromBackend
+   })}
